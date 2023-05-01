@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User
+from .models import User, UserImage
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -28,3 +28,27 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # VALIDATED_DATA -> {'email': 'admin3@gmail.com', 'phone': '996700071102', 'password': '12345'}
         return User.objects.create_user(**validated_data)
+
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserImage
+        fields = '__all__'
+
+    def _get_image_url(self, obj):
+        # чтобы сслыка на изображение перекидывалаа на саму фотографию создаем данный метод
+        if obj.image: # если есть изображение, то сработает код ниже
+            url = obj.image.url #????
+            request = self.context.get('request')
+            #context содержит в себе словарь со всеми данными
+            # из него вытаскиваем значения по ключу request, который мы создали в serializer
+            if request is not None:
+                url = request.build_absolute_uri(url) #
+            else:
+                url = ''
+            return  url
+
+    def to_representation(self, instance):
+        #instance - объект PostImage
+        representation = super().to_representation(instance)
+        representation['image'] = self._get_image_url(instance)
+        return representation

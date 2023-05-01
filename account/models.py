@@ -43,3 +43,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['phone']
 
     objects = UserManager() # указываем нового менеджера
+
+class UserImage(models.Model):
+    objects = None
+    image = models.ImageField(upload_to='users', blank=True,null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='images')
