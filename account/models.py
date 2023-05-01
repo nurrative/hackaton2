@@ -37,7 +37,6 @@ class User(AbstractUser):
     username = None # убираем username из полей
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=50)
-    bio = models.TextField()
 
     USERNAME_FIELD = 'email' #указываем какое поле использовать при логине
     REQUIRED_FIELDS = ['phone']
