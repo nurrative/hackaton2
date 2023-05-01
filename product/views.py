@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListCreateAPIView, DestroyAPIView
-from .models import Category, Product
-from .serializers import ProductSerializer, CategorySerializer
+from .models import Product, Subcategory
+from .serializers import ProductSerializer, SubcategorySerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -10,10 +10,10 @@ class ProductViewSet(ModelViewSet):
 
 
 class CategoryListCreateAPIView(ListCreateAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    queryset = Subcategory.objects.all()
+    serializer_class = SubcategorySerializer
 
 
 class CategoryDestroyAPIView(DestroyAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    queryset = Subcategory.objects.all()
+    serializer_class = SubcategorySerializer

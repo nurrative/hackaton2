@@ -6,7 +6,7 @@ from .views import ProductViewSet, CategoryListCreateAPIView, CategoryDestroyAPI
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 urlpatterns = [
-    path('product-detail/', ProductViewSet.as_view({'get': 'list'})),
+    path('', include(router.urls)),
     path('categories/', CategoryListCreateAPIView.as_view()),
     path('categories/<int:pk>/', CategoryDestroyAPIView.as_view()),
 ]
