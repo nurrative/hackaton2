@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Comment, Rating
+from .models import Comment, Rating, Favorite
 
 
 # Rating, Favorite
@@ -7,8 +7,8 @@ from .models import Comment, Rating
 class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
-        # exclude = ('user',)
-        fields = '__all__'
+        exclude = ('user',)
+        # fields = '__all__'
         #так как наше поле user должен автоматичеки заполняться, то надо включить его в переменную exclude
     def validate(self, attrs):
         # но нам нужно добавить поле user в наш словарь с данными, поэтому переопределяем функцию validate
@@ -40,3 +40,20 @@ class RatingSerializer(ModelSerializer):
         value = validated_data.pop('value')
         obj, created = Rating.objects.update_or_create(**validated_data, defaults={'value': value})
         return obj
+
+class FavoriteSerializer(ModelSerializer):
+    class Meta:
+        model = Favorite
+        exclude = ('user',)
+
+    def validate(self, attrs):
+        super().validate(attrs)
+        attrs['user'] = self.context['request'].user
+        return attrs
+
+    def to_representation(self, instance: Favorite):
+        from product.serializers import ProductSerializer
+
+        rep = super().to_representation(instance)
+        rep['product'] = ProductSerializer(instance.product).data
+        return  rep
