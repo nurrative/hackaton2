@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'account',
     'product',
     'review',
+    'cart',
+
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'account.User'
+
+# CART_SESSION_ID = 'cart'
+#Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
+
