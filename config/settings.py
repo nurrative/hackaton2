@@ -50,7 +50,12 @@ INSTALLED_APPS = [
     'account',
     'product',
     'review',
+
+    'cart',
+
+
     'chat',
+
 ]
 
 MIDDLEWARE = [
@@ -161,6 +166,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -180,6 +186,7 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'account.User'
 
+
 # CELERY_BROKER_URL='redis://127.0.0.1:16379/0'
 
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
@@ -197,5 +204,10 @@ CACHES = {
     },
 }
 CELERY_CACHE_BACKEND = 'default'
+
+
+
+# CART_SESSION_ID = 'cart'
+#Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
 
 

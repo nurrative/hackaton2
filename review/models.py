@@ -19,3 +19,6 @@ class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorites')
 
+class Like(models.Model):
+    user = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, related_name='likes', on_delete=models.CASCADE)
