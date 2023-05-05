@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'review',
     'chat',
     'channels',
+    
 ]
 
 MIDDLEWARE = [
@@ -186,3 +187,9 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'account.User'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'aminuwko@gmail.com'
+EMAIL_HOST_PASSWORD = '1234567890'
