@@ -9,3 +9,4 @@ django-filter
 dj-shop-cart
 poetry
 pytest
+

@@ -1,3 +1,4 @@
+
 import uuid
 from django.db import models
 
@@ -22,6 +23,7 @@ class Cartitems(models.Model):
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
     cart =  models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='payments',blank=True, null=True)
+
 
 
 

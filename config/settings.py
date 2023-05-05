@@ -48,7 +48,11 @@ INSTALLED_APPS = [
     'account',
     'product',
     'review',
+
     'cart',
+
+
+    'chat',
 
 ]
 
@@ -81,10 +85,22 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
@@ -94,8 +110,10 @@ DATABASES = {
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
-    }
+    },
+   
 }
+
 
 
 # Password validation
@@ -164,6 +182,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'account.User'
+
 
 # CART_SESSION_ID = 'cart'
 #Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
