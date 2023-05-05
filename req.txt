@@ -6,6 +6,13 @@ djangorestframework-simplejwt
 drf_yasg
 Pillow
 django-filter
+
+celery
+django-celery-results
+Redis
+django-redis
+django-celery-beat
+
 dj-shop-cart
 poetry
 pytest
