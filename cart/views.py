@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
 from rest_framework.views import APIView
@@ -21,3 +22,4 @@ class PaymentView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response("Вы успешно оплатили покупку!", status=201)
+

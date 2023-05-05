@@ -1,3 +1,4 @@
+
 import uuid
 from django.db import models
 
@@ -24,6 +25,7 @@ class Payment(models.Model):
     cart =  models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='payments',blank=True, null=True)
     # card_number = models.IntegerField(max_value=16, min_value=16)
     # cvv = models.IntegerField(max_value=3, min_value=3)
+
 
 
 
