@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'review',
     'chat',
     'channels',
+    'telegram_bot'
     
 ]
 
