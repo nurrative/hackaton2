@@ -11,6 +11,10 @@ from .models import Comment, Favorite, Rating, Like
 from .serializers import CommentSerializer, RatingSerializer, FavoriteSerializer
 
 
+from .models import Comment
+from .serializers import CommentSerializer
+
+
 class CommentViewSet(
     mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
     queryset = Comment.objects.all()
