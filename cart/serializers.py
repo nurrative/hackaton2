@@ -62,8 +62,6 @@ class CartSerializer(serializers.ModelSerializer):
         return total
 
 class PaymentSerializer(serializers.ModelSerializer):
-    card_number = serializers.IntegerField(max_value=16, min_value=16)
-    cvv = serializers.IntegerField(max_value=3, min_value=3)
     # datetime = serializers.DateField(auto_now_add=True)
     class Meta:
         model= Payment
