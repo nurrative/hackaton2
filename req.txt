@@ -12,7 +12,7 @@ django-celery-results
 Redis
 django-redis
 django-celery-beat
-
+telegram_bot
 dj-shop-cart
 poetry
 pytest

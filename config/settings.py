@@ -52,16 +52,9 @@ INSTALLED_APPS = [
     'review',
 
     'cart',
-
-
     'chat',
-<<<<<<< HEAD
     'channels',
-    'telegram_bot'
-    
-=======
 
->>>>>>> 6e1a252cbb588ea856277d6b6c4201b790f58d2b
 ]
 
 MIDDLEWARE = [
@@ -192,14 +185,12 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'account.User'
 
-<<<<<<< HEAD
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'aminuwko@gmail.com'
 EMAIL_HOST_PASSWORD = '1234567890'
-=======
 
 # CELERY_BROKER_URL='redis://127.0.0.1:16379/0'
 
@@ -223,6 +214,3 @@ CELERY_CACHE_BACKEND = 'default'
 
 # CART_SESSION_ID = 'cart'
 #Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
-
-
->>>>>>> 6e1a252cbb588ea856277d6b6c4201b790f58d2b
