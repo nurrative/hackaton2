@@ -2,7 +2,8 @@ from rest_framework import serializers
 
 from product.models import Product
 # from product.serializers import ProductSerializer
-from .models import Cart, Cartitems
+from .models import Cart, Cartitems, Payment
+
 
 class SimpleProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,3 +60,11 @@ class CartSerializer(serializers.ModelSerializer):
         items = cart.items.all()
         total = sum([item.quantity * item.product.price for item in items])
         return total
+
+class PaymentSerializer(serializers.ModelSerializer):
+    card_number = serializers.IntegerField(max_value=16, min_value=16)
+    cvv = serializers.IntegerField(max_value=3, min_value=3)
+    # datetime = serializers.DateField(auto_now_add=True)
+    class Meta:
+        model= Payment
+        fields = '__all__'

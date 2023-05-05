@@ -18,3 +18,11 @@ class Cartitems(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cartitems',blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='cartitems')
     quantity = models.IntegerField(default=1)
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+    cart =  models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='payments',blank=True, null=True)
+
+
+
+
