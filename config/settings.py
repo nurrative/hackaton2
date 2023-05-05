@@ -43,15 +43,25 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'django_filters',
+    'django_celery_results',
+    'django_celery_beat',
 
     #my apps
     'account',
     'product',
     'review',
+
+    'cart',
+
+
     'chat',
+<<<<<<< HEAD
     'channels',
     'telegram_bot'
     
+=======
+
+>>>>>>> 6e1a252cbb588ea856277d6b6c4201b790f58d2b
 ]
 
 MIDDLEWARE = [
@@ -85,14 +95,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
 
 
 
@@ -109,14 +119,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432',
     },
-    'test': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('TEST_DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+   
 }
 
 
@@ -169,6 +172,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -188,9 +192,37 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'account.User'
 
+<<<<<<< HEAD
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'aminuwko@gmail.com'
 EMAIL_HOST_PASSWORD = '1234567890'
+=======
+
+# CELERY_BROKER_URL='redis://127.0.0.1:16379/0'
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "django-db"
+#celery beat settings
+# CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    },
+}
+CELERY_CACHE_BACKEND = 'default'
+
+
+
+# CART_SESSION_ID = 'cart'
+#Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
+
+
+>>>>>>> 6e1a252cbb588ea856277d6b6c4201b790f58d2b
