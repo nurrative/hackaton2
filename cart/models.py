@@ -5,7 +5,7 @@ import uuid
 from django.db import models
 
 from product.models import Product
-from account.models import User
+from user_account.models import User
 
 
 class Cart(models.Model):

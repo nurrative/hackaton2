@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,21 +46,46 @@ INSTALLED_APPS = [
     'django_filters',
     'django_celery_results',
     'django_celery_beat',
+    'django.contrib.sites',
 
     #my apps
-    'account',
+    'user_account',
     'product',
     'review',
 
     'cart',
-    'orders',
-
     'chat',
     'channels',
-    # 'telegram_bot'
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.github',
+    'orders',
+   # 'telegram_bot'
 
 ]
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR/'templates'/'social',
+            BASE_DIR/'templates'/'chat', 
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,33 +98,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": [('127.0.0.1', 6379)],
-#         },
-#     },
-# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 
@@ -158,6 +169,13 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'social/static'
+# ]
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -186,7 +204,9 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 }
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'user_account.User'
+ACCOUNT_EMAIL_REQUIRED = True  # указывает, что email обязателен для регистрации
+ACCOUNT_USERNAME_REQUIRED = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -217,5 +237,22 @@ CELERY_CACHE_BACKEND = 'default'
 
 # CART_SESSION_ID = 'cart'
 #Это ключ, который мы собираемся использовать для хранения корзины в сессии пользователя.
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID=1
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+# SOCIAL_AUTH_VK_OAUTH2_KEY = '51401801'
+# SOCIAL_AUTH_VK_OAUTH2_SECRET = 'KMpbkRX6G2yDDDtZIUse'
 
 
