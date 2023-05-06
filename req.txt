@@ -16,4 +16,4 @@ dj-shop-cart
 poetry
 pytest
 django-allauth
-django-crispy-forms
+social-auth-app-django
