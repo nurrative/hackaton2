@@ -1,6 +1,7 @@
 from rest_framework import serializers
+from .models import UserImage, User
+from .utils import send_activation_code
 
-from .models import User, UserImage
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -27,7 +28,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # VALIDATED_DATA -> {'email': 'admin3@gmail.com', 'phone': '996700071102', 'password': '12345'}
-        return User.objects.create_user(**validated_data)
+
+        user = User.objects.create_user(**validated_data)
+        send_activation_code(email=user.email, activation_code=user.activation_code)
+        return user
+
 
 class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,3 +57,6 @@ class UserImageSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['image'] = self._get_image_url(instance)
         return representation
+    
+
+
