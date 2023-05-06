@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.vk',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.github',
-
+    'orders',
+   # 'telegram_bot'
 
 ]
 

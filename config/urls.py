@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/v1/', include('cart.urls')),
     path('chat/', include('chat.urls')),
     path('accounts/', include('allauth.urls')),
+    path('api/v1/', include(('orders.urls', 'orders'), namespace='orders')),
     # path('celeryapp/', include('celeryapp.urls'))
 
 ]
