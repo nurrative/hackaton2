@@ -32,12 +32,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', schema_view.with_ui("swagger")),
     path('api/v1/account/', include('account.urls')),
+    # re_path(r'^orders/', include('orders.urls',namespace='orders')),
+    path('api/v1/', include(('orders.urls', 'orders'), namespace='orders')),
     path("api/v1/", include('product.urls')),
     path('api/v1/', include('review.urls')),
-
     path('api/v1/', include('cart.urls')),
     path('chat/', include('chat.urls')),
-
     # path('celeryapp/', include('celeryapp.urls'))
 
 ]

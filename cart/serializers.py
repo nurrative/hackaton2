@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from product.models import Product
 # from product.serializers import ProductSerializer
-from .models import Cart, Cartitems, Payment
+from .models import Cart, Cartitems, Payment  # Payment
 
 
 class SimpleProductSerializer(serializers.ModelSerializer):
@@ -62,9 +62,53 @@ class CartSerializer(serializers.ModelSerializer):
         return total
 
 class PaymentSerializer(serializers.ModelSerializer):
-    card_number = serializers.IntegerField(max_value=16, min_value=16)
-    cvv = serializers.IntegerField(max_value=3, min_value=3)
-    # datetime = serializers.DateField(auto_now_add=True)
+    # payments = CartSerializer(many=False)
+
+
     class Meta:
-        model= Payment
+        model = Payment
         fields = '__all__'
+
+    def create(self, validated_data):
+        payment = super().create(validated_data)
+        payment.set_password(validated_data['password'])
+        payment.save()
+        return payment
+
+    def validate(self, attrs):
+        # ATTRS BEFORE -> OrderedDict([('email', 'admin1@gmail.com'), ('phone', '996700071102'), ('password', '12345'), ('password_confirm', '12345')])
+        card = attrs.get("card_number")
+        # ATTRS AFTER POP -> # ATTRS -> OrderedDict([('email', 'admin1@gmail.com'), ('phone', '996700071102'), ('password', '12345')])
+        if len(card) != 16:
+            raise serializers.ValidationError("Длина пароля от карточки должна быть 16 символов")
+        super().validate(attrs)
+        attrs['cart'] = self.context['request'].cart
+        # else:
+        #     cart = Cart(request)
+        return attrs
+
+    # def validate(self, attrs):
+    #     super().validate(attrs)
+    #     attrs['user'] = self.context['request'].user
+    #     return attrs
+
+    # def to_representation(self, instance):
+    #     #хотим внести доп инфу в блок user
+    #     rep = super().to_representation(instance)
+    #     rep['cart'] = {
+    #         "id": instance.cart.id,
+    #         "items": instance.cart.items,
+    #         "grand_total": instance.cart.grand_total,
+    #     }
+    #     return rep
+
+
+
+    # def update(self, instance, validated_data):
+    #     payment = super().update(instance, validated_data)
+    #     try:
+    #         payment.set_password(validated_data['password'])
+    #         payment.save()
+    #     except KeyError:
+    #         pass
+    #     return payment
