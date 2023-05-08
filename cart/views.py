@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from .models import Cart, Payment
 from .serializers import CartSerializer, PaymentSerializer  # PaymentSerializer
-from rest_framework.response import Response
+
 
 
 # Create your views here.
@@ -19,9 +19,10 @@ class PaymentViewSet(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, Ge
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     # @swagger_auto_schema(request_body=PaymentSerializer())
+
     # def post(self, request):
     #     serializer = PaymentSerializer(data=request.data)
     #     serializer.is_valid(raise_exception=True)
     #     serializer.save()
-    #     return Response("Вы успешно оплатили покупку!", status=201)
+    #     r
 

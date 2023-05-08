@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from django.views.generic import TemplateView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -31,13 +32,14 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', schema_view.with_ui("swagger")),
-    path('api/v1/account/', include('account.urls')),
-    # re_path(r'^orders/', include('orders.urls',namespace='orders')),
-    path('api/v1/', include(('orders.urls', 'orders'), namespace='orders')),
+    path('api/v1/account/', include('user_account.urls')),
     path("api/v1/", include('product.urls')),
     path('api/v1/', include('review.urls')),
+    path('home/', TemplateView.as_view(template_name='dashboard/home.html'), name='home'),
     path('api/v1/', include('cart.urls')),
     path('chat/', include('chat.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('api/v1/', include(('orders.urls', 'orders'), namespace='orders')),
     # path('celeryapp/', include('celeryapp.urls'))
 
 ]
