@@ -58,5 +58,9 @@ class UserImageSerializer(serializers.ModelSerializer):
         representation['image'] = self._get_image_url(instance)
         return representation
     
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
 
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
 
