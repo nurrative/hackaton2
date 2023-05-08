@@ -81,15 +81,15 @@ class PaymentSerializer(serializers.ModelSerializer):
             super().validate(attrs)
             return attrs
 
-    def validate_cvv(self, attrs):
-        cvv = attrs.get("cvv")
-        if len(cvv) != 3:
-            raise serializers.ValidationError("Длина CVV должна составлять 3 символа")
-        elif cvv.isalpha():
-            raise serializers.ValidationError("Пароль от CVV должен содержать только цифры")
-        else:
-            super().validate(attrs)
-            return attrs
+    # def validate_cvv(self, attrs):
+    #     cvv = attrs.get("cvv")
+    #     if len(cvv) != 3:
+    #         raise serializers.ValidationError("Длина CVV должна составлять 3 символа")
+    #     elif cvv.isalpha():
+    #         raise serializers.ValidationError("Пароль от CVV должен содержать только цифры")
+    #     else:
+    #         super().validate(attrs)
+    #         return attrs
 
 
     # def validate(self, attrs):
