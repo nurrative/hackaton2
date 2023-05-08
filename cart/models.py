@@ -16,8 +16,8 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def clear(self):
-        pass
+    # def clear(self):
+    #     pass
 
 
 class Cartitems(models.Model):
@@ -27,8 +27,9 @@ class Cartitems(models.Model):
     quantity = models.IntegerField(default=1)
 
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments', blank=True, null=True)
     cart =  models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='payments',blank=True, null=True)
+    # final_cart = models.ForeignKey(Cartitems, on_delete=models.CASCADE, related_name='payments',blank=True, null=True)
     card_number = models.CharField(max_length=16) #min_length=16
     cvv = models.CharField(max_length=3)
     paid = models.BooleanField(default=False)
