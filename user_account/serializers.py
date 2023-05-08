@@ -59,8 +59,26 @@ class UserImageSerializer(serializers.ModelSerializer):
         return representation
     
 class ChangePasswordSerializer(serializers.Serializer):
-    model = User
-
-    old_password = serializers.CharField(required=True)
+    current_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+    confirm_password = serializers.CharField(required=True)
 
+    def validate(self, data):
+        """
+        Проверяем, что новый пароль и подтверждение пароля совпадают
+        """
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError("The new password and confirmation do not match")
+        return data
+    
+
+
+    
+    def save(self):
+        data = self.validated_data
+        user = User.objects.get(email=data['email'])
+        user.set_activation_code()
+        user.password_confirm()
+
+
+      

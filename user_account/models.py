@@ -61,6 +61,7 @@ class User(AbstractUser):
         self.activation_code = activation_code
 
     
+    
 class UserImage(models.Model):
     objects = None
     image = models.ImageField(upload_to='users', blank=True,null=True)

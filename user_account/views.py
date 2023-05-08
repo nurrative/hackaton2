@@ -1,11 +1,9 @@
 from rest_framework.views import APIView
-from rest_framework.generics import UpdateAPIView
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import RegisterUserSerializer
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 
@@ -29,42 +27,30 @@ class ActivationView(APIView):
         user.save()
         return Response("Your account successfully activated!")
     
-class LogoutView(APIView ):
-    permission_classes = [IsAuthenticated, ]
-
-    def post(self, request):
-        user = request.user
-        print(user)
-        Token.objects.filter(user=user).delete()
-        return Response('Succesfully logged out', status=200)
-    
-
-    
-class ChangePasswordView(UpdateAPIView):
-    serializer_class = ChangePasswordSerializer
-    model = User
+class ChangePasswordAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, queryset=None):
-        obj = self.request.user
-        return obj
+    @swagger_auto_schema(request_body=ChangePasswordSerializer)
+    def post(self, request, *args, **kwargs):
+        current_password = request.data.get("current_password")
+        new_password = request.data.get("new_password")
+        confirm_password = request.data.get("confirm_password")
+        
+        # Check if the current password is correct
+        if not request.user.check_password(current_password):
+            return Response({"message": "Current password is incorrect"}, status=400)
+        
+        # Check if the new password and confirm password match
+        if new_password != confirm_password:
+            return Response({"message": "New password and confirm password do not match"}, status=400)
+        
+        # Change the password and save the user
+        request.user.set_password(new_password)
+        request.user.save()
+        
+        return Response({"message": "Password changed successfully"}, status=200)
+    
 
-    def update(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        serializer = self.get_serializer(data=request.data)
 
-        if serializer.is_valid():
-            if not self.object.check_password(serializer.data.get("old_password")):
-                return Response({"old_password": ["Wrong password."]}, status=400)
-            self.object.set_password(serializer.data.get("new_password"))
-            self.object.save()
-            response = {
-                'status': 'success',
-                'message': 'Password updated successfully',
-                'data': [],
-                
-            }
 
-            return Response(response)
-
-        return Response(serializer.errors, status=400)
+    
