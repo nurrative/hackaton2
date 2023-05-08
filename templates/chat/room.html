@@ -9,6 +9,11 @@ body {
   max-width: 400px;
   padding: 0 20px;
   opacity: 0.9;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .container {
@@ -17,6 +22,7 @@ body {
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
+  width: 400px;
 }
 
 .darker {
@@ -67,7 +73,7 @@ body {
   </style>
 </div>
 
-<div id="display">
+<div id="display" style="width: 500px; display: flex; align-items: center; flex-direction: column;">
 
 </div>
 
@@ -165,11 +171,5 @@ setInterval(function(){
     document.getElementById('message').value = ''
   });
 </script>
-<style>
-  body {
-   background: #c7b39b url("{% static 'chat-bg.jpg' %}");
-   color: #fff;
-  }
-</style>
 
 </html>
