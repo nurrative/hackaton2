@@ -3720,3 +3720,10 @@ Watching for file changes with StatReloader
 "GET /chat/getMessages/1/ HTTP/1.1" 200 387
 "GET /chat/getMessages/1/ HTTP/1.1" 200 387
 "GET /chat/getMessages/1/ HTTP/1.1" 200 387
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /docs/ HTTP/1.1" 200 2150
+"GET /docs/?format=openapi HTTP/1.1" 200 15489
+"POST /api/v1/account/register/ HTTP/1.1" 201 58
+"GET /api/v1/account/activate/2535230f7d825a219809bf6854c79df8/ HTTP/1.1" 200 38
