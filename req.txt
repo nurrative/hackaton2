@@ -17,3 +17,4 @@ poetry
 pytest
 django-allauth
 social-auth-app-django
+django-filter
