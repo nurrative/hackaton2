@@ -27,7 +27,10 @@ class FavoriteViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Des
     permission_classes = [IsAuthenticated, IsAuthor]
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        user_id = self.request.user.id
+        if user_id:
+            return self.queryset.filter(user=user_id)
+        return self.queryset.none()
         #пытаемся установить фильтр по Избранным
 
 class RatingViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, GenericViewSet):

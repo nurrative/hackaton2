@@ -29,30 +29,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #libs
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
-    'django_filters',
     'django_celery_results',
     'django_celery_beat',
     'django.contrib.sites',
+    'django_filters',
+    'channels',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
 
     #my apps
     'user_account',
     'product',
     'review',
-
-    'cart',
     'chat',
-    'channels',
+    'cart',
+    'orders',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.vk',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.github',
-    'orders',
    # 'telegram_bot'
 
 ]
@@ -158,12 +159,6 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'social/static'
-# ]
-
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 
 # Default primary key field type
@@ -175,7 +170,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
 }
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -252,3 +250,23 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ACTIVATE_USERS_EMAIL = True
 EMAIL_USE_SSL = False
+# /Users/ваше_имя_пользователя/Desktop/myprojectlogs/mylogs.log
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/Nurik/Desktop/hackaton2/mylogs.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

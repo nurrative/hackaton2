@@ -9,7 +9,10 @@ class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = (SearchFilter, DjangoFilterBackend)
-    filterset_fields = ('name', 'description', 'subcategory')
+    filterset_fields = ('name', 'subcategory')
+
+    def __str__(self) -> str:
+        return super().__str__()
 
 class CategoryListCreateAPIView(ListCreateAPIView):
     queryset = Subcategory.objects.all()
