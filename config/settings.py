@@ -255,7 +255,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': '/Users/Nurik/Desktop/hackaton2/mylogs.log',
+            'filename': f'{BASE_DIR}/mylogs.log',
         },
     },
     'loggers': {
