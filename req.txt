@@ -17,3 +17,7 @@ pytest
 django-allauth
 social-auth-app-django
 django-filter
+channels
+gunicorn
+whitenoise
+dj-database-url
