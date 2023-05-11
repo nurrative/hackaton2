@@ -3727,3 +3727,5 @@ Watching for file changes with StatReloader
 "GET /docs/?format=openapi HTTP/1.1" 200 15489
 "POST /api/v1/account/register/ HTTP/1.1" 201 58
 "GET /api/v1/account/activate/2535230f7d825a219809bf6854c79df8/ HTTP/1.1" 200 38
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 22165
