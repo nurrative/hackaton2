@@ -17,7 +17,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOST', default= '*').split()
 
 
 
@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'whitenoise.runserver_nostatic',
     
     #libs
     'rest_framework',
@@ -118,8 +117,6 @@ DATABASES = {
     },
 }
 
-db = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db)
 
 
 # Password validation
@@ -265,23 +262,3 @@ ACTIVATE_USERS_EMAIL = True
 EMAIL_USE_SSL = False
 # /Users/ваше_имя_пользователя/Desktop/myprojectlogs/mylogs.log
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': f'{BASE_DIR}/mylogs.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
